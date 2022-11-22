@@ -93,6 +93,8 @@
   padding-top: 10rem;
   padding-bottom: 1rem;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 .footerSupport {
   position: absolute;
@@ -230,5 +232,8 @@
   }
   .txt {
     padding: 0 1rem;
+  }
+  .footerSupport img {
+    width: 44px;
   }
 }
