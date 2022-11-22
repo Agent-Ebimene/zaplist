@@ -2,31 +2,47 @@ import { mobileImg } from "assets";
 import React from "react";
 import { Helmet } from "react-helmet";
 
-export const MyHelmet = () => {
+interface HelmetProps {
+  title: string;
+  description: string;
+  ogType: string;
+  username: string;
+  image: string;
+}
+
+const MyHelmet = (props: HelmetProps) => {
+  const PUBLIC_URL = window.location.origin;
+  const url = window.location.href;
+  const imageUrl = PUBLIC_URL + props.image;
+
   return (
     <Helmet>
-      {/* <!-- Facebook Meta Tags --> */}
-      <meta property="og:url" content={window.location.href} />
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content="Zaplist" />
-      <meta
-        property="og:description"
-        content="Join the Zaplist!"
-      />
-      <meta property="og:image" content={mobileImg} />
-
-      {/* <!-- Twitter Meta Tags --> */}
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:site" content="@Zaplist" />
-      <meta name="twitter:creator" content="@Zaplist" />
-      <meta property="twitter:domain" content={window.location.href} />
-      <meta property="twitter:url" content={window.location.href} />
-      <meta name="twitter:title" content="Zaplist" />
-      <meta
-        name="twitter:description"
-        content="Join the Zaplist!"
-      />
-      <meta name="twitter:image" content={mobileImg} />
+      <title>{props.title}</title>
+      <meta name="description" content={props.description} />
+      <meta property="og:type" content={props.ogType} />
+      <meta property="og:site_name" content={props.title} />
+      <meta property="og:title" content={props.title} />
+      <meta property="og:description" content={props.description} />
+      <meta property="og:url" content={url} />
+      <meta property="og:image" content={imageUrl} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={props.username} />
+      <meta name="twitter:creator" content={props.username} />
+      <meta name="twitter:title" content={props.title} />
+      <meta name="twitter:description" content={props.description} />
+      <meta name="twitter:url" content={url} />
+      <meta name="twitter:image" content={imageUrl} />
+      <meta name="twitter:image:src" content={imageUrl} />
     </Helmet>
   );
 };
+
+MyHelmet.defaultProps = {
+  title: "Zaplist",
+  description: "Join the Zaplist!",
+  ogType: "website",
+  image: "/thumbnail.jpg", // point to your default Opengraph image
+  username: "@zaplist",
+};
+
+export { MyHelmet };
