@@ -335,4 +335,7 @@
   .footerSupport img {
     width: 44px;
   }
+  .successTtl {
+    font-size: 40px;
+  }
 }
