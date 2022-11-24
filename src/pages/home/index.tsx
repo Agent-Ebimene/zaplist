@@ -2,9 +2,7 @@ import { HomeUI } from "components";
 import * as React from "react";
 import axios from "axios";
 
-const API_URL = ""
-
-const waitlistURL = `${API_URL}/`;
+const waitlistURL = `https://zap-waitlist.herokuapp.com/v1/user`;
 
 const Home = () => {
   const [loading, setLoading] = React.useState(false);
@@ -34,18 +32,20 @@ const Home = () => {
     axios
       .post(waitlistURL, { email })
       .then((res) => {
-        if (res.status === 200 || res.status === 201) {
+        if (res.status === 200) {
           setSent(true);
           setTimeout(() => {
             setSent(false);
-          }, 20000);
-          setClear(!clear)
+          }, 10000);
+          setClear(!clear);
         }
       })
       .catch((err) => {
         setError(
-          err.response.data.message ??
-            "Failed to join waitlist, please try again later"
+          err.response.data.error &&
+            err.response.data.error.match("duplicate key error")
+            ? "This email already exists in the waitlist!"
+            : "Failed to join waitlist, please try again later"
         );
       })
       .finally(() => {

@@ -61,6 +61,17 @@
   max-width: 600px;
   margin: auto;
 }
+.inputMsgWrap {
+  width: calc(100% - 200px);
+  border-radius: inherit;
+}
+.error {
+  color: #ff3838;
+  font-size: 12px;
+  font-weight: 200;
+  text-align: left;
+  margin-top: 4px;
+}
 .inputSec input {
   padding-left: 2rem;
   background: rgba(40, 45, 68, 0.53);
@@ -70,7 +81,8 @@
   border-radius: inherit;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  width: calc(100% - 200px);
+  width: 100%;
+  height: 100%;
   letter-spacing: 0.5px;
 }
 .inputSec input::placeholder {
@@ -131,6 +143,77 @@
   letter-spacing: 0.2px;
 }
 
+/* Loading state */
+.spinner {
+  border: 4px solid var(--white);
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success Message */
+.blur {
+  filter: blur(2px);
+}
+.successWrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.successBody {
+  background: rgba(19, 20, 25, 0.96);
+  border: 4px solid #293054;
+  border-radius: 44px;
+  padding: 3.5rem 2.5rem 3rem;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+}
+.successTtl {
+  font-family: 'Neuropolitical';
+  font-weight: 400;
+  font-size: 70px;
+  margin-bottom: 1rem;
+}
+.successTxt {
+  font-size: 15px;
+  font-weight: 200;
+  letter-spacing: 0.3px;
+  line-height: 1.5;
+  max-width: 400px;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+.successSocials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.successSocials a {
+  margin: 0 6px;
+}
+.successSocials svg {
+  width: 28px;
+  height: auto;
+}
+
 @media screen and (max-width: 1300px) {
   .ttl {
     font-size: 60px;
@@ -184,6 +267,20 @@
     margin: 0.8rem 0 1.8rem;
     line-height: 1.5;
   }
+  .successBody {
+    padding: 3rem 2rem 2rem;
+    width: 90%;
+    max-width: 450px;
+  }
+  .successTtl {
+    font-size: 44px;
+  }
+  .successTxt {
+    font-size: 14px;
+  }
+  .successSocials svg {
+    width: 20px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -192,12 +289,14 @@
     height: unset;
     justify-content: center;
   }
-  .inputSec input {
+  .inputMsgWrap {
+    margin-bottom: 1rem;
     width: 100%;
+  }
+  .inputSec input {
     border: 3px solid #262c4d;
     border-radius: inherit;
     height: 48px;
-    margin-bottom: 1rem;
   }
   .inputSec button {
     letter-spacing: 0.5px;

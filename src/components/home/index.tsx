@@ -23,16 +23,20 @@ const HomeUI: React.FC<HomeProps> = ({
   addToWaitlist,
   clear,
 }) => {
-  const [hover, setHover] = React.useState(false);
   const [email, setEmail] = React.useState("");
 
   React.useEffect(() => {
     setEmail("");
   }, [clear]);
 
+  const twitterUrl = "#";
+  const instagramUrl = "#";
+  const termsOfUse = "#";
+  const privacyPolicy = "#";
+
   return (
     <>
-      <main>
+      <main className={sent ? styles.blur : ""}>
         <header className={`container ${styles.header}`}>
           <img className={styles.logo} src={logo} alt="logo" />
           <nav className={styles.nav}>
@@ -62,8 +66,23 @@ const HomeUI: React.FC<HomeProps> = ({
                 We’ll let you know as soon as we launch the platform.
               </p>
               <div className={styles.inputSec}>
-                <input type="email" placeholder="Your Email" />
-                <button>Join the Zaplist</button>
+                <div className={styles.inputMsgWrap}>
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    disabled={loading}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                  {error ? <p className={styles.error}>{error}</p> : ""}
+                </div>
+                <button onClick={() => addToWaitlist(email.trim())}>
+                  {!loading ? (
+                    "Join the Zaplist"
+                  ) : (
+                    <div className={styles.spinner}></div>
+                  )}
+                </button>
               </div>
             </div>
           </div>
@@ -81,10 +100,10 @@ const HomeUI: React.FC<HomeProps> = ({
           <div className={styles.footerSec1}>
             <div className={styles.footerImgSec}>
               <img src={logo} alt="zaplist logo" />
-              <a href="#" target={"_blank"} rel="noreferrer">
+              <a href={twitterUrl} target={"_blank"} rel="noreferrer">
                 <TwitterIcon />
               </a>
-              <a href="#" target={"_blank"} rel="noreferrer">
+              <a href={instagramUrl} target={"_blank"} rel="noreferrer">
                 <InstagramIcon />
               </a>
             </div>
@@ -94,15 +113,38 @@ const HomeUI: React.FC<HomeProps> = ({
           </div>
 
           <div className={styles.footerSec2}>
-            <a href="#" target={"_blank"} rel="noreferrer">
+            <a href={termsOfUse} target={"_blank"} rel="noreferrer">
               Terms of Use
             </a>
-            <a href="#" target={"_blank"} rel="noreferrer">
+            <a href={privacyPolicy} target={"_blank"} rel="noreferrer">
               Privacy Policy
             </a>
           </div>
         </footer>
       </main>
+
+      {sent ? (
+        <div className={styles.successWrapper}>
+          <div className={styles.successBody}>
+            <h1 className={styles.successTtl}>THAT’S IT !</h1>
+            <p className={styles.successTxt}>
+              Congratulations ! You’re officially on the ZAPlist and will get
+              early access! Keep an eye out for our emails. You can also follow
+              our socials for updates.
+            </p>
+            <div className={styles.successSocials}>
+              <a href={twitterUrl} target={"_blank"} rel="noreferrer">
+                <TwitterIcon />
+              </a>
+              <a href={instagramUrl} target={"_blank"} rel="noreferrer">
+                <InstagramIcon />
+              </a>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };
